@@ -12,6 +12,7 @@ $fs=0.2;
 //color("White") Small_arm_adaptor();
 wall=1.3;
 //clamp();
+//short_clamp();
 
 
 
@@ -47,8 +48,8 @@ scale([1,1,1])cylinder(r=FlangeBevel, h=Flange[2]);
 
 module Small_arm_adaptor(){
 translate([0,0,12.1]) hull(){
-  cylinder(r=7.5/2,h=2);
-  translate([13,0,0]) cylinder(r=3/2,h=2);
+  cylinder(r=8/2,h=2);
+  translate([13,0,0]) cylinder(r=3.5/2,h=2);
 }
 translate([ 0.00, 0.00, 9.9 ]) cylinder(r=7.5/2,h=4);}
 
@@ -95,26 +96,22 @@ cylinder(r=2,h=40);}
 module clamp(){
 difference(){
 union(){
-translate([-10-wall,-10-wall,0])
-cube([33+wall,30+(wall*2),12.3]);
+translate([-6-wall,-10-wall,0])
+cube([30+wall,30+(wall*2),12.3]);
 translate([18,-10.9,6]) rotate([90,180,0])hull(){
   cylinder(r2=9/2,r1=12.2/2,h=2);
   translate([13,0,0]) cylinder(r2=5/2,r1=5,h=3);
 }
 }
 
-translate([-10,-10,-0.1])
-cube([33.2,30,12.5]);
+//Hollow
+translate([-6,-10,-0.1]) cube([33.2,30,12.5]);
 
 //end rounding
-translate([17,25,12.2/2])rotate([90,0,0])difference(){
+for (y = [-5, 25]){
+translate([17,y,12.2/2])rotate([90,0,0])difference(){
 translate([0,-12.3/2,0])cube(12.5);
-cylinder(r=12.3/2,h=10);
-}
-translate([17,-5,12.2/2])rotate([90,0,0])difference(){
-translate([0,-12.3/2,0])cube(12.5);
-cylinder(r=12.3/2,h=10);
-}
+cylinder(r=12.3/2,h=10);}}
 
 
 translate([18,0,12.3/2]){
@@ -126,15 +123,80 @@ rotate([90,180,0]) Small_arm_adaptor();
 rotate([90,0,0]) translate([18,12.3/2,-20.5]) cylinder(r1=2.5,r2=2.2,h=5);
 
 //Cable duct
-translate([-20,20,0]) difference(){
+translate([-6-(wall/2),20+(wall*0.5),0])
+rotate([0,0,90]){
+translate([-wall/2,-wall/2,0])
+difference(){
 cube([10,wall,12.3]);
 translate([wall,-0.1,wall])
 cube([10-(wall*2),10,12.3-(wall*2)]);
 }
-translate([-20,-10-wall,0]) difference(){
+
+}
+translate([-6-(wall/2),-10-(wall/2),0]) 
+rotate([0,0,270]){
+translate([-wall/2,-wall/2,0])
+difference(){
+	cube([10,wall,12.3]);
+	translate([wall,-0.1,wall])
+	cube([10-(wall*2),10,12.3-(wall*2)]);
+}
+}
+
+}
+
+
+
+
+module short_clamp(){
+difference(){
+union(){
+translate([-6-wall,-10-wall,0])
+cube([30+wall,30+(wall*2),12.3]);
+translate([18,-10.9,6]) rotate([90,180,0])hull(){
+  cylinder(r2=9/2,r1=12.2/2,h=2);
+  translate([13,0,0]) cylinder(r2=5/2,r1=5,h=3);
+}
+}
+
+//Hollow
+translate([-6,-10,-0.1]) cube([33.2,30,12.5]);
+
+//end rounding
+for (y = [-5, 25]){
+translate([17,y,12.2/2])rotate([90,0,0])difference(){
+translate([0,-12.3/2,0])cube(12.5);
+cylinder(r=12.3/2,h=10);}}
+
+
+translate([18,0,12.3/2]){
+#draw_servo([90,0,0]);
+rotate([90,180,0]) Small_arm_adaptor();
+}
+}
+//Pin under servo
+rotate([90,0,0]) translate([18,12.3/2,-20.5]) cylinder(r1=2.5,r2=2.2,h=5);
+
+//Cable duct
+translate([-6-(wall/2),20+(wall*0.5),0])
+rotate([0,0,90]){
+translate([-wall/2,-wall/2,0])
+difference(){
 cube([10,wall,12.3]);
 translate([wall,-0.1,wall])
 cube([10-(wall*2),10,12.3-(wall*2)]);
 }
+
+}
+translate([-6-(wall/2),-10-(wall/2),0]) 
+rotate([0,0,270]){
+translate([-wall/2,-wall/2,0])
+difference(){
+	cube([10,wall,12.3]);
+	translate([wall,-0.1,wall])
+	cube([10-(wall*2),10,12.3-(wall*2)]);
+}
+}
+
 }
 

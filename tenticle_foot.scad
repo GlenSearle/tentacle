@@ -1,6 +1,6 @@
 include <./servo-s2309s.scad>;
-wall=1.3;
-BeamLength=64;
+wall=1.75;
+BeamLength=100;
 
 difference(){
 translate([-AxleOffset+0.01,-wall-ServoBody[1]/2,-0.1-FlangeToBottom-wall+0.1]) 
@@ -25,11 +25,11 @@ rotate([0,180,0]) cylinder(r=2.5, h=5);
 //draw_servo([0,0,0]);
 
 rotate([0,0,180])
-translate([3.71+wall,7-wall-ServoBody[1]/2,-FlangeToBottom-wall])
+translate([3+wall,7-wall-ServoBody[1]/2,-FlangeToBottom-wall])
 beam(BeamLength);
 
-rotate([0,0,180])
-translate([BeamLength+14+wall,2-wall-ServoBody[1]/2,-FlangeToBottom-wall]) clamp();
+//rotate([0,0,180])
+//translate([BeamLength+14+wall,2-wall-ServoBody[1]/2,-FlangeToBottom-wall]) clamp();
 
 
 
