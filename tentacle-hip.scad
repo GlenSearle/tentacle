@@ -1,9 +1,16 @@
 include <./servo-s2309s.scad>;
+//Thickness of walls in mm.
 wall=1.6;
+//Length of beam comming off servo holder in mm.
+BeamLendth=90;
 
 //The amount of extra space around the servo sides.
 //X & Y of the main body only.
 ServoPadding=0.2;
+
+
+
+
 
 difference(){
 translate([-AxleOffset+0.01,-wall-ServoBody[1]/2,-0.1-FlangeToBottom-wall]) 
@@ -17,7 +24,10 @@ rotate([0,180,0]){
   cube([5,wall,3]);
 }
 translate([0,wall+ServoBody[1]/2,0])
+difference(){ 
 cylinder(r=wall+ServoBody[1]/2,h=FlangeToBottom+wall+Flange[2]);
+translate([-21,-8,10]) cube(15);
+}
 }
 draw_servo([0,0,0]);
 
@@ -37,7 +47,7 @@ rotate([0,180,0]) cylinder(r=2.5, h=5);
 
 translate([18.01+wall,7-wall-ServoBody[1]/2,-FlangeToBottom-wall])
 rotate([180,90,0],center=true)
-beam(64);
+beam(BeamLendth);
 
 
 

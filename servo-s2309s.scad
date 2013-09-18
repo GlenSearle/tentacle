@@ -18,6 +18,9 @@ $fs=0.2;
 //************************************************************************
 //draw_servo();
 //color("White") Small_arm_adaptor();
+//cross_adaptor()
+//long_armed_adaptor();
+
 //clamp();
 //short_clamp();
 
@@ -45,11 +48,16 @@ translate([ ServoBody[1]/2, 0.00, 0.00 ])
 translate([ ServoBody[1]/2+3.5, 0.00, 0.00 ])
 cylinder(r=2.2/2, h=7);}
 
+//draw the flange
 translate([-FlangeBevel-AxleOffset,FlangeBevel-Flange[1]/2,0]){
 color("gray") minkowski(){
 cube([Flange[0]-(FlangeBevel*2),Flange[1]-(FlangeBevel*2),0.001]);
 scale([1,1,1])cylinder(r=FlangeBevel, h=Flange[2]);
-}}}
+}
+}
+translate([FlangeBevel+AxleOffset-(Flange[0]/2)-0.4,0,0]) scale([0.8,4.5,1]) color("gray") cylinder(h=Flange[2],r=1);
+translate([FlangeBevel+AxleOffset+(Flange[0]/2)-1,0,0]) scale([0.8,4.5,1]) color("gray") cylinder(h=Flange[2],r=1);
+}
 
 
 
@@ -92,7 +100,7 @@ cube ([beam_length,14,12.3]);
 translate([-wall,wall,wall])
 cube ([beam_length+(wall*2),14-(wall*2),12]);//z=6.4 for hollow beam.
 
-for (x=[0:10:beam_length-5]){
+for (x=[5:15:beam_length-17]){
 translate ([x+(beam_length/12),7,-3]){
 cylinder(r=2,h=20);
 translate([0,20,3+(12.3/2)])

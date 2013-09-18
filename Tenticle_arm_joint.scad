@@ -1,9 +1,12 @@
 include <./servo-s2309s.scad>;
 wall=1.75;
-BeamLength=30;
+BeamLength=8;
+//The amount of extra space around the servo.
+ServoPadding=0.2;
+
 
 difference(){
-translate([-AxleOffset+0.01,-wall-ServoBody[1]/2,-0.1-FlangeToBottom-wall]) 
+translate([-AxleOffset+0.01,-wall-ServoBody[1]/2,-FlangeToBottom-wall]) 
 union(){
 cube([ServoBody[0]+wall,ServoBody[1]+wall*2,FlangeToBottom+wall+Flange[2]]);
 translate([0,wall+ServoBody[1]/2,0])
@@ -18,7 +21,7 @@ cube([10,20,11]);
 translate([-4.5,0,-8]) scale([0.3,1,1]) cylinder(r=12.5/2,h=9);
 
 //pivot hole
-translate([0,0,-FlangeToBottom+0.1])
+translate([0,0,-FlangeToBottom-0.01])
 rotate([0,180,0]) cylinder(r=2.5, h=5);
 }
 
