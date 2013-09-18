@@ -5,12 +5,19 @@ FlangeBevel=2.2;
 AxleOffset=5;
 AxelRadius=4.9/2; //Without adaptor
 
+wall=1.3;
+
+//The amount of extra space around the servo.
+ServoPadding=0;
+
 BoltRadius=1;
 $fs=0.2;
 
+//************************************************************************
+//*** Enable one of these to draw something from the this library of parts.
+//************************************************************************
 //draw_servo();
 //color("White") Small_arm_adaptor();
-wall=1.3;
 //clamp();
 //short_clamp();
 
@@ -18,8 +25,9 @@ wall=1.3;
 
 module draw_servo(spin) rotate(spin){
 //Main body
-color("gray") translate([ -AxleOffset, -ServoBody[1]/2, -FlangeToBottom ])
-cube(ServoBody);
+color("gray") translate([ -AxleOffset-ServoPadding, -ServoPadding-(ServoBody[1]/2), -FlangeToBottom ])
+
+cube([ServoBody[0]+(ServoPadding*2),ServoBody[1]+(ServoPadding*2),ServoBody[2]]);
 
 //Drive shaft
 color("white") cylinder(r=AxelRadius, h=14);

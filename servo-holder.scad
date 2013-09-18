@@ -1,6 +1,8 @@
 include <./servo-s2309s.scad>;
-wall=1;
+wall=1.6;
 
+//The amount of extra space around the servo.
+ServoPadding=0.2;
 
 difference(){
 translate([-AxleOffset+0.01,-wall-ServoBody[1]/2,-0.1-FlangeToBottom-wall]) 
@@ -22,7 +24,7 @@ draw_servo([0,0,0]);
 translate([-14.9,-10,-FlangeToBottom-wall-0.2])
 cube([10,20,11]);
 //Arch for servo cable.
-translate([-4.5,0,-8]) scale([0.5,1,1]) cylinder(r=12.5/2,h=9);
+translate([-4.5,0,-8]) scale([0.7,1,1]) cylinder(r=12.5/2,h=9);
 
 //pivot hole
 translate([0,0,-FlangeToBottom+0.1])
