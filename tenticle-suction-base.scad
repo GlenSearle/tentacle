@@ -7,17 +7,15 @@ holes=11.5;
 //Number of feet on the base.
 feet=3; 
 
-//Distance in mm to from the center to the bolt holes.
-range=25; 
+//Distance in mm to from the center to the suction cups.
+range=32; 
 
 //Resolution of 3D printer in mm.
 $fs=0.2;
 
+
+//Size of the beam being held.
 hole=[14,12.3+1.5,72];
-
-
-
- 
 
 
 difference(){
