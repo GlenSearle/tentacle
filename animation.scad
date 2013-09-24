@@ -1,11 +1,10 @@
-echo($t);
+echo ($t);
 
-FootAngle=-90;
-WristAngle=90;
-ForearmAngle=0;
-HipAngle=0;
+FootAngle=180*($t-0.5);
+WristAngle=180*($t-0.5);
+HipAngle=180*($t-0.5);
 
-
+echo ("hello");
 //Base translation 
 translate([14,0,120]){
 
@@ -13,9 +12,7 @@ translate([14,0,120]){
 rotate([0,0,HipAngle])
 translate([59.8,-11,0])
 {
-//Forearm translatio
-translate([0,0,0])
-rotate([0,ForearmAngle,0]){
+
 //Wrist translation
 rotate([180,WristAngle,0])
 translate([27,0,11]){
@@ -40,7 +37,7 @@ translate([-27,0,-11])
 rotate([-90,0,0])
 import("./ServoSmallArm.stl");
 }
-}
+
 rotate([90,0,0]){
 color("gray")
 import("./servo.stl");
@@ -56,13 +53,13 @@ import("./ServoSmallArm.stl");
 rotate([0,0,180]){
 color("grey")
 import("./servo.stl");
-color("red")
+color("yellow")
 import("./tentacle-hip.stl");
 }
 }
 
 
-color("yellow")
+color("red")
 import("./tenticle-suction-base.stl");
 
 
