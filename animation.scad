@@ -1,8 +1,8 @@
 echo ($t);
 
-FootAngle=180*($t-0.5);
-WristAngle=180*($t-0.5);
-HipAngle=180*($t-0.5);
+FootAngle=(90*sin(360*$t));
+WristAngle=(90*sin(360*$t*2));
+HipAngle=(90*sin(360*$t));
 
 echo ("hello");
 //Base translation 
