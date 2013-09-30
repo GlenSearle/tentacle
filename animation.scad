@@ -1,10 +1,11 @@
 echo ($t);
 
-FootAngle=(90*sin(360*$t));
-WristAngle=(90*sin(360*$t*2));
+
+FootAngle=(90*sin(360*$t*10));
+WristAngle=(90*sin(360*$t*5));
 HipAngle=(90*sin(360*$t));
 
-echo ("hello");
+
 //Base translation 
 translate([14,0,120]){
 
@@ -20,7 +21,7 @@ translate([27,0,11]){
 translate([24,0,-11])
 rotate([90,FootAngle,180]){
 color("gray")
-import("/Users/glen/tentacle/servo.stl");
+import("./servo.stl");
 
 color("red")
 import("./tenticle_foot.stl");
