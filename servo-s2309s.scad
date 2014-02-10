@@ -15,11 +15,14 @@ $fs=0.2;
 
 //************************************************************************
 //*** Enable one of these to draw something from the this library of parts.
+//***
+//*** A number in the bracket of an adaptor part will rotate it by that
+//*** number of degrees.
 //************************************************************************
 //draw_servo();
-//color("White") Small_arm_adaptor();
-//cross_adaptor()
-//long_armed_adaptor();
+//Small_arm_adaptor(11);
+//cross_adaptor(30);
+//long_armed_adaptor(45);
 
 //clamp();
 //short_clamp();
@@ -62,35 +65,39 @@ translate([FlangeBevel+AxleOffset+(Flange[0]/2)-1,0,0]) scale([0.8,4.5,1]) color
 
 
 
-module Small_arm_adaptor(){
+module Small_arm_adaptor(turn_head){
+color("White"){
 translate([0,0,12.1]) hull(){
   cylinder(r=8/2,h=2);
+  rotate([0,0,turn_head])
   translate([13,0,0]) cylinder(r=3.5/2,h=2);
 }
-translate([ 0.00, 0.00, 9.9 ]) cylinder(r=7.5/2,h=4);}
+translate([ 0.00, 0.00, 9.9 ]) cylinder(r=7.5/2,h=4);}}
 
-module long_armed_adaptor(){
-translate([0,0,12.1]) hull(){
+module long_armed_adaptor(turn_head){
+color("White"){
+translate([0,0,12.1]) rotate([0,0,turn_head]) hull(){
   cylinder(r=7.2/2,h=2);
   translate([16.5,0,0]) cylinder(r=5/2,h=2);
   translate([-16.5,0,0]) cylinder(r=5/2,h=2);
 }
 translate([ 0.00, 0.00, 9.9 ]) cylinder(r=7.2/2,h=4);
-}
+}}
 
-module cross_adaptor(){
+module cross_adaptor(turn_head){
+color("White"){
 translate([0,0,12.1]){
 cylinder(r=8/2,h=2);
-hull(){
+hull() rotate([0,0,turn_head]) {
   cylinder(r=4/2,h=2);
   translate([12.5,0,0]) cylinder(r=3/2,h=2);
   translate([-12.5,0,0]) cylinder(r=3/2,h=2); }
-hull(){
+hull() rotate([0,0,turn_head]) {
   cylinder(r=4/2,h=2);
   translate([0,10.5,0]) cylinder(r=3/2,h=2);
   translate([0,-10.5,0]) cylinder(r=3/2,h=2); }
 translate([ 0.00, 0.00, -2.1 ]) cylinder(r=7.2/2,h=4);
-}}
+}}}
 
 
 module beam(beam_length){

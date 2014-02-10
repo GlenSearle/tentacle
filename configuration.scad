@@ -14,7 +14,10 @@ hole=[14,12.3,72];
 
 FootBeamLength=100;
 
-
+//base
+//hip
+//arm
+//forarm
 
 //radius of base plate cone bottom in mm.
 base=[13,2,0];
@@ -26,5 +29,5 @@ holes=3;
 feet=3; 
 
 //Distance in mm to from the center to of the base plate to the bolt holes.
-range=50; 
+range=50;
 
