@@ -5,12 +5,16 @@ wall=1.6;
 hip_angle=[30,-30,30,-30,0,0,0,0];
 foot_angle=[-70,-50,-70,-50,-30,-10,0,0];
 foot_length=[80,80,80,80,80,80,80,80];
-flying=[0,1,0,1,0,1,0,1,0,0];
+paddle=[0,1,0,0,0,0,0,0,0,0];
+blow=[1,0,0,0,0,0,0,0,0,0];
 leg_count=6;
 
-fan=[40,40,10];
 
-fan();
+
+//fan=number of blades, length of side, height.
+fan_default=[6,20,5,6];
+translate([-23,-23,-15])
+    fan([7,46,12]);
 
 //The amount of extra space around the servo sides.
 //X & Y of the main body only.
@@ -58,7 +62,13 @@ rotate([-90,0,180])translate([-18,0,-5.8]){
 clamp();
 rotate([0,0,180]) translate([6.1,0,0]){
         beam(foot_length[leg_number]);
-        if ( flying[leg_number] == 1 ) flipper(foot_length[leg_number]);
+        if ( paddle[leg_number] == 1 )
+            flipper(foot_length[leg_number]);
+        if ( blow[leg_number] == 1 )
+            mirror([0,1,0])
+            translate([wall,7,wall])
+            fan([5,20,5]);
+            
 }}}//End foot
 
 }
@@ -81,29 +91,29 @@ module magnet (){
     
     }
 
-module fan () {
-fan=[40,40,10];
+module fan (fan) {
+//fan=number of blades, length of side, height.
+//fan=[5,40,10];
 color([0,0,0])
 difference(){
-cube (fan);
-    translate([fan[0]/2,fan[1]/2,0]){
-cylinder(h=30, center=true, r=(fan[0]/2)-2); 
+cube ([fan[1],fan[1],fan[2]]);
+    translate([fan[1]/2,fan[1]/2,0]){
+cylinder(h=30, center=true, r=(fan[1]/2)-2); 
     }}
-color("white") translate([fan[0]/2,fan[1]/2,0])   
+color("white") translate([fan[1]/2,fan[1]/2,0])   
 for ( angle=[45:90:360] ){
     rotate([0,0,angle]) 
-    translate([sqrt(pow(fan[0]/2,2) + pow(fan[1]/2,2))-4,0,-1])
-    cylinder(h=fan[2]+3, r=1.5);
+    translate([sqrt(pow(fan[1]/2,2) + pow(fan[1]/2,2))-4,0,-1])
+    cylinder(h=fan[2]+3, r=fan[1]/15);
     
 }
 
-blades=5;
-translate([fan[0]/2,fan[1]/2,0])
-color("yellow") cylinder(h=fan[2], r=5);
-translate([(fan[0]/2),(fan[1]/2),1])
-for ( angle=[0: blades] ){
-    rotate([0,30,angle*(360/blades)])
-    cube ([2,(fan[1]/2)-2,fan[2]]);
+translate([fan[1]/2,fan[1]/2,0])
+color("yellow") cylinder(h=fan[2], r=fan[1]/5);
+translate([(fan[1]/2),(fan[1]/2),1])
+for ( angle=[0: fan[0]] ){
+    rotate([0,30,angle*(360/fan[0])])
+    cube ([fan[1]/15,(fan[1]/2)-2,fan[2]]);
     }
     }
 
