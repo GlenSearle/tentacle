@@ -2,8 +2,9 @@ echo ($t);
 
 include <./servo-s2309s.scad>;
 wall=1.6;
-hip_angle=0;
-foot_angle=270;
+hip_angle=[30,-30,30,-30,0,0];
+foot_angle=[-70,-50,-70,-50,-30,-10,0];
+//leg_number=0;
 
 
 //The amount of extra space around the servo sides.
@@ -20,11 +21,12 @@ difference(){
 }}
 
 
-for ( i = [0 : 5] )
+for ( leg_number = [0 : 5] )
 {
 //Hip translation
 
-    rotate( i * 360 / 6, [0, 0, 1])
+    rotate( leg_number * 360 / 6, [0, 0, 1])
+    //echo (leg_number);
     translate([50, 0, 0])
     rotate ([0,0,180]){
     hip();
@@ -33,7 +35,7 @@ for ( i = [0 : 5] )
 
 //Leg and first servo
 
-     rotate([0,0,hip_angle])//3rd value is X.
+     rotate([0,0,hip_angle[leg_number]])//3rd value is X.
      
      translate([-60,11.2,0]) rotate([90,0,180]){
      color("red")
@@ -45,7 +47,7 @@ for ( i = [0 : 5] )
 
 //Foot
 draw_servo([0,0,0]);
-rotate([0,0,foot_angle]){
+rotate([0,0,foot_angle[leg_number]]){
 color("white")import("./ServoSmallArm.stl");
 
 rotate([-90,0,180])translate([-18,0,-5.8]){
