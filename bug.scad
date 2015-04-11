@@ -2,9 +2,10 @@ echo ($t);
 
 include <./servo-s2309s.scad>;
 wall=1.6;
-hip_angle=[30,-30,30,-30,0,0];
-foot_angle=[-70,-50,-70,-50,-30,-10,0];
-//leg_number=0;
+hip_angle=[30,-30,30,-30,0,0,0,0];
+foot_angle=[-70,-50,-70,-50,-30,-10,0,0];
+foot_length=[80,80,80,80,80,80,80,80];
+leg_count=6;
 
 
 //The amount of extra space around the servo sides.
@@ -15,17 +16,17 @@ ServoPadding=0.2;
 
 translate([0,0,-11]) color("orange"){
 difference(){
- cylinder (h=5, r=66, $fn=6);
+ cylinder (h=5, r=66, $fn=leg_count*2);
  translate([0,0,-0.5])
  cylinder (h=6, r=30, $fn=120);
 }}
 
 
-for ( leg_number = [0 : 5] )
+for ( leg_number = [0 : leg_count-1] )
 {
 //Hip translation
 
-    rotate( leg_number * 360 / 6, [0, 0, 1])
+    rotate( leg_number * 360 / leg_count, [0, 0, 1])
     //echo (leg_number);
     translate([50, 0, 0])
     rotate ([0,0,180]){
@@ -52,15 +53,22 @@ color("white")import("./ServoSmallArm.stl");
 
 rotate([-90,0,180])translate([-18,0,-5.8]){
 clamp();
-rotate([0,0,180]) translate([6.1,0,0]) beam(80);
-}}//End foot
+rotate([0,0,180]) translate([6.1,0,0]){
+        beam(foot_length[leg_number]);
+        cube([80,40,wall]);
+}}}//End foot
 
 }
 }
 } //End for loop
 
+module flipper(){
+    
+    }
 
-
+module magnet (){
+    
+    }
 
 
 
