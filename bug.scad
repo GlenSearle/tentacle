@@ -5,15 +5,18 @@ wall=1.6;
 hip_angle=[30,-30,30,-30,0,0,0,0];
 foot_angle=[-70,-50,-70,-50,-30,-10,0,0];
 foot_length=[80,80,80,80,80,80,80,80];
+flying=[0,1,0,1,0,1,0,1,0,0];
 leg_count=6;
 
+fan=[40,40,10];
+
+fan();
 
 //The amount of extra space around the servo sides.
 //X & Y of the main body only.
 ServoPadding=0.2;
 
 //Base translation
-
 translate([0,0,-11]) color("orange"){
 difference(){
  cylinder (h=5, r=66, $fn=leg_count*2);
@@ -55,22 +58,54 @@ rotate([-90,0,180])translate([-18,0,-5.8]){
 clamp();
 rotate([0,0,180]) translate([6.1,0,0]){
         beam(foot_length[leg_number]);
-        cube([80,40,wall]);
+        if ( flying[leg_number] == 1 ) flipper(foot_length[leg_number]);
 }}}//End foot
 
 }
 }
 } //End for loop
 
-module flipper(){
-    
-    }
+module flipper(distance){
+    difference(){
+      hull(){
+        translate([0,-20,0])
+          cube([1,30,wall]);
+        translate([distance,-35,0])
+          cube([1,70,wall]);
+      }
+      translate([0,-5,-5])
+         cube([distance,10,10]);  
+    }}
 
 module magnet (){
     
     }
 
+module fan () {
+fan=[40,40,10];
+color([0,0,0])
+difference(){
+cube (fan);
+    translate([fan[0]/2,fan[1]/2,0]){
+cylinder(h=30, center=true, r=(fan[0]/2)-2); 
+    }}
+color("white") translate([fan[0]/2,fan[1]/2,0])   
+for ( angle=[45:90:360] ){
+    rotate([0,0,angle]) 
+    translate([sqrt(pow(fan[0]/2,2) + pow(fan[1]/2,2))-4,0,-1])
+    cylinder(h=fan[2]+3, r=1.5);
+    
+}
 
+blades=5;
+translate([fan[0]/2,fan[1]/2,0])
+color("yellow") cylinder(h=fan[2], r=5);
+translate([(fan[0]/2),(fan[1]/2),1])
+for ( angle=[0: blades] ){
+    rotate([0,30,angle*(360/blades)])
+    cube ([2,(fan[1]/2)-2,fan[2]]);
+    }
+    }
 
 
 
